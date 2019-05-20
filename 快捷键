@@ -1,0 +1,4 @@
+1: Tab       :整块缩进
+2: shift+Tab :反向缩进
+3: Ctrl+Alt+t: try/catch
+4: Alt+Shift+F10: 运行
