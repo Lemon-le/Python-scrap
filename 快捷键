@@ -2,3 +2,5 @@
 2: shift+Tab :反向缩进
 3: Ctrl+Alt+t: try/catch
 4: Alt+Shift+F10: 运行
+5: Ctrl+/    :批量注释
+6: Ctrl+Shift+u :选中的大小写转换
