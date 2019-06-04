@@ -1,14 +1,9 @@
 import requests
 from lxml import etree
-from fake_useragent import UserAgent
 import random
 
 
 url = "https://gz.newhouse.fang.com/house/s/"
-#url = "http://www.baidu.com"
-
-
-ua = UserAgent()
 
 my_headers = [
     "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36",
@@ -34,43 +29,30 @@ headers = {
 proxies = {
     'http': 'http://5.141.81.65:61853',
     'http': '188.92.242.180:52048',
-
 }
 
 session = requests.session()
 
-# response = session.get(url=url,headers=headers)
-# selector = etree.HTML(response.text)
-# result = selector.xpath('//div[@class="nlcd_name"]//a/@href')
-#
-# # 对返回的信息进行初始化，构造一个XPath解析对象
-# url="https:"+result[1]
-# result=session.get(url,headers=headers)
-# selector = etree.HTML(result.text)
-# result = selector.xpath('//*[@id="orginalNaviBox"]//a[2]/@href')
-
 url = "https://yayunchenggz.fang.com/house/2811801062/housedetail.htm"
 result = session.get(url, headers=headers)
 
-#当requests请求
+# 当requests请求时只会简单的从服务器返回的Content-Type去获取编码，如果有Charset才能正确识别编码，否则就使用默认的ISO-8859-1，
+# 这样某些不规范的服务器返回就会乱码了
 
-result.encoding='gb2312'
-
-a=requests.utils.get_encodings_from_content(result.text)
-print(a)
-
-selector = etree.HTML(result.text)
-
-#打印编码
+# 打印返回结果的编码 为ISO-8859-1，说明没有在Content-Type识别到Charset
 print(result.encoding)
 
+# 通过requests.utils.get_encodings_from_content函数通过返回的结果获取真正的编码，这里得到结果为gb2312
+actually_code = requests.utils.get_encodings_from_content(result.text)
+print(actually_code)
+
+# 从上面知道了真正的编码为gb2312，那么直接对requests请求返回的结果进行正确的编码
+result.encoding = 'gb2312'
+
+selector = etree.HTML(result.text)
 
 # 价格
 price = selector.xpath('//div[@class="main-info-price"]//em/text()')
 price_act = price[0].replace('\t','')
 
-
-
-
-
-#find_all(id="sjina_C22_02")
+print(price_act)
