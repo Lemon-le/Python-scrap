@@ -64,13 +64,160 @@ selector = etree.HTML(result.text)
 #打印编码
 print(result.encoding)
 
+# 基本信息
+# 1、价格
+# price = selector.xpath('//div[@class="main-info-price"]//em/text()')
+# price_act = price[0].replace('\t','')
+# print(price_act)
 
-# 价格
-price = selector.xpath('//div[@class="main-info-price"]//em/text()')
-price_act = price[0].replace('\t','')
+# 2、物业类别
+# wuyeType = selector.xpath('//div[@class="main-left"]/div[1]/ul[@class="list clearfix"]/li[1]/div[2]/text()')
+# wuyeType_act = wuyeType[0].replace('\t','').replace(' ','')
+# print(wuyeType_act)
+
+li_all = selector.xpath('//div[@class="main-item"]/ul[@class="list clearfix"]/li')
+
+for i in li_all:
+    data = i.xpath('.//div[@class="list-right"]')
+    print(data)
+    #wuyu = data[0].xpath('string(.)')
+    #print(wuyu)
+#  #wuyeType_act = wuyeType[0].replace('\t','').replace(' ','')
+#     print(wuyeType2.replace('\t','').replace('\t\n','\n'))
+
+
+
+
+# 3、项目特色
+# project_feture = selector.xpath('//div[@class="main-left"]/div[1]/ul[@class="list clearfix"]/li[2]/div[2]/span/text()')
+# project_feture_act = ''
+# for i in project_feture:
+#     project_feture_act = project_feture_act + i + " "
+# print(project_feture_act)
+
+# 4、建筑类别
+# building_category = selector.xpath('//div[@class="main-left"]/div[1]/ul[@class="list clearfix"]//span[@class="bulid-type"]/text()')
+# building_category_act = building_category[0].replace('\t','').replace('\n','')
+# print(building_category_act)
+# 销售信息
+
+# 5、装修状态
+# ZhuangXiu = selector.xpath('//div[@class="main-left"]/div[1]/ul[@class="list clearfix"]/li[2]/div[2]/li[2]/div[2]/text()')
+# ZhuangXiu_Act = ZhuangXiu[0].replace('\t', '')
+# print(ZhuangXiu_Act)
+
+# 6、产权年限
+#chanquanYear = selector.xpath('//div[@class="main-left"]/div[1]/ul[@class="list clearfix"]/li[2]/div[2]/li[3]//p/text()')
+#print(chanquanYear)
+
+# 7、环线位置
+#huanxian_position = selector.xpath('//div[@class="main-left"]/div[1]/ul[@class="list clearfix"]/li[2]/div[2]/li[4]/div[1]/text()')
+#print(huanxian_position[1])
+
+# 8、开发商
+# kaifa = selector.xpath('//div[@class="main-left"]/div[1]/ul[@class="list clearfix"]/li[2]/div[2]/li[5]/div/a/text()')
+# kaifa_act = kaifa[0]
+# print(kaifa_act)
+
+# 9、楼盘地址
+# lpaddress = selector.xpath('//div[@class="main-left"]/div[1]/ul[@class="list clearfix"]/li[2]/div[2]/li[6]/div[2]/text()')
+# lpaddress_act = lpaddress[0]
+# print(lpaddress)
+
+# 销售信息
+# 1、销售状态
+# sale_status = selector.xpath('//div[@class="main-left"]//ul[@class="list clearfix"]/li[1]/div[2]/text()')
+# sale_status_act = sale_status[1].replace('\t','').replace(' ','')
+# print(sale_status_act)
+
+# 2、优惠信息 /html/body/div[5]/div/div[1]/div[2]
+
+# YouHui = selector.xpath('//div[@class="main-left"]/div[1]/ul/li/div[3]/ul/li[2]/div[2]/text()')
+# YouHui_Act = YouHui[0].replace('\t','').replace(' ','')
+# print(YouHui_Act)
+
+# KaiPan = selector.xpath('//div[@class="main-left"]/div[1]/ul/li/div[3]/ul/li[3]/div[2]/text()')
+# KaiPan_Act = KaiPan[0].replace('\t','').replace(' ','')
+# print(KaiPan_Act)
+
+# JiaoFang = selector.xpath('//div[@class="main-left"]/div[1]/ul/li/div[3]/ul/li[4]/div[2]/text()')
+# JiaoFang_Act = JiaoFang[0].replace('\t','').replace(' ','')
+# print(JiaoFang_Act)
+
+# JiaoFang = selector.xpath('//div[@class="main-left"]/div[1]/ul/li/div[3]/ul/li[5]/div[2]/text()')
+# JiaoFang_Act = JiaoFang[0].replace('\t','').replace(' ','')
+# print(JiaoFang_Act)
+
+# JiaoFang = selector.xpath('//div[@class="main-left"]/div[1]/ul/li/div[3]/ul/li[6]/div[2]/text()')
+# JiaoFang_Act = JiaoFang[0].replace('\t','').replace(' ','')
+# print(JiaoFang_Act)
+
+
+# 1、销售状态,优惠信息,开盘时间,交房时间,售楼地址,咨询电话,主力户型
+# JiaoFang = selector.xpath('//div[@class="main-left"]/div[1]/ul/li/div[3]/ul/*')
+#
+# for i in range(1,len(JiaoFang)):
+#     print(selector.xpath('//div[@class="main-left"]/div[1]/ul/li/div[3]/ul/li[' + str(i) + ']/div[2]/text()')[0].replace('\n','').replace('\t',''))
+
+# 主力户型
+# JiaoFang = selector.xpath('//div[@class="main-left"]/div[1]/ul/li/div[3]/ul/li[7]/div/a/text()')
+# JiaoFang_Act = ''
+# for i in JiaoFang:
+#     JiaoFang_Act = JiaoFang_Act + i
+# print(JiaoFang_Act)
+
+
+
+
+#基本信息
+#YouHui = selector.xpath('//div[@class="main-left"]/div[1]/h3/text()')
+#销售信息
+#YouHui = selector.xpath('//div[@class="main-left"]/div[1]/ul/li/div[3]/h3/text()')
+#周边设施
+#YouHui = selector.xpath('//div[@class="main-left"]/div[1]/ul/li/div[4]/h3/text()')
+#小区规划
+#YouHui = selector.xpath('//div[@class="main-left"]/div[1]/ul/li/div[5]/h3/text()')
+#价格信息
+#YouHui = selector.xpath('//div[@class="main-left"]/div[1]/ul/li/div[6]/h3/text()')
+# 项目简介
+#YouHui = selector.xpath('//div[@class="main-left"]/div[1]/ul/li/div[7]/h3/text()')
 
 
 
 
 
-#find_all(id="sjina_C22_02")
+
+#
+# li_xpath = selector.xpath('//div[@class="main-item"]/ul[@class="list clearfix"]/li')
+#
+# for i in li_xpath:
+#     right = i.xpath('.//div[@class="list-right"]')
+#     print(right[0])
+# print(li_xpath)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
