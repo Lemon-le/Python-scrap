@@ -55,6 +55,7 @@ class Parse(object):
         name = self.selector.xpath('//div//a[@class="ts_linear"]/text()')
         # print(name[0])
         name_act = name[0]
+        print(name_act)
         basic.append(name_act)
 
         # 1、价格
@@ -155,16 +156,84 @@ class Parse(object):
 
         xiaoqu = []
 
-        XiaoQu = self.selector.xpath('//div[@class="main-left"]/div[1]/ul/li/div[5]/ul/li/div[2]//text()')
+        # 占地面积
+        zhandi = self.selector.xpath('//div[@class="main-left"]/div[1]/ul/li/div[5]/ul/li[1]/div[@class="list-right"]/text()')
 
-        if len(XiaoQu) != 11:
-            for i in XiaoQu:
-                if not i:
-                    i = ' '
-                xiaoqu.append(i)
+        if not zhandi:
+            zhandi = ['暂无']
+        zhandi_act = zhandi[0]
+        xiaoqu.append(zhandi_act)
 
-        print(xiaoqu)
-        # return xiaoqu
+        # 建筑面积
+        jianzhu = self.selector.xpath('//div[@class="main-left"]/div[1]/ul/li/div[5]/ul/li[2]/div[@class="list-right"]/text()')
+        if not jianzhu:
+            jianzhu = ['暂无']
+        jianzhu_act = jianzhu[0]
+        xiaoqu.append(jianzhu_act)
+
+        # 容积率
+        rongjilv = self.selector.xpath('//div[@class="main-left"]/div[1]/ul/li/div[5]/ul/li[3]/div[@class="list-right"]/text()')
+        if not rongjilv:
+            rongjilv = ['暂无']
+        xiaoqu.append(rongjilv[0])
+
+        # 绿化率
+        lvhua = self.selector.xpath('//div[@class="main-left"]/div[1]/ul/li/div[5]/ul/li[4]/div[@class="list-right"]/text()')
+        if not lvhua:
+            lvhua = ['暂无']
+        xiaoqu.append(lvhua[0])
+
+        # 停车位
+        car_stop = self.selector.xpath(
+            '//div[@class="main-left"]/div[1]/ul/li/div[5]/ul/li[5]/div[@class="list-right"]/text()')
+        if not car_stop:
+            car_stop = ['暂无']
+        xiaoqu.append(car_stop[0])
+
+        # 楼栋总数：
+        loudong_count = self.selector.xpath(
+            '//div[@class="main-left"]/div[1]/ul/li/div[5]/ul/li[6]/div[@class="list-right"]/text()')
+        if not loudong_count:
+            loudong_count = ['暂无']
+        xiaoqu.append(loudong_count[0])
+
+        # 总户数：
+        all_house = self.selector.xpath(
+            '//div[@class="main-left"]/div[1]/ul/li/div[5]/ul/li[7]/div[@class="list-right"]/text()')
+        if not all_house:
+            all_house = ['暂无']
+        xiaoqu.append(all_house[0])
+
+        # 物业公司：
+        wy_company = self.selector.xpath(
+            '//div[@class="main-left"]/div[1]/ul/li/div[5]/ul/li[8]/div[@class="list-right"]/a/text()')
+        if not wy_company:
+            wy_company = ['暂无']
+        xiaoqu.append(wy_company[0])
+
+        # 物业费：
+        wy_cost = self.selector.xpath(
+            '//div[@class="main-left"]/div[1]/ul/li/div[5]/ul/li[9]/div[@class="list-right"]/text()')
+        if not wy_cost:
+            wy_cost = ['暂无']
+        xiaoqu.append(wy_cost[0])
+
+        # 物业费描述：
+        wy_cost_descri = self.selector.xpath(
+            '//div[@class="main-left"]/div[1]/ul/li/div[5]/ul/li[10]/div[@class="list-right-floor"]/text()')
+        if not wy_cost_descri:
+            wy_cost_descri = ['暂无']
+        xiaoqu.append(wy_cost_descri[0])
+
+        # 楼层状况：
+        lc_descri = self.selector.xpath(
+            '//div[@class="main-left"]/div[1]/ul/li/div[5]/ul/li[11]/div[@class="list-right-floor"]/text()')
+        if not lc_descri:
+            lc_descri = ['暂无']
+        xiaoqu.append(lc_descri[0])
+        #print(xiaoqu)
+
+        return xiaoqu
 
     # 项目简介
     def project_intro(self):
@@ -179,5 +248,5 @@ class Parse(object):
         return intro_act
 
 #
-parse = Parse('https://dazhuangmingcheng.fang.com/house/2811173750/housedetail.htm')
-parse.Xiaoqu()
+# parse = Parse('https://dazhuangmingcheng.fang.com/house/2811173750/housedetail.htm')
+# parse.Xiaoqu()

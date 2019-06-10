@@ -153,12 +153,13 @@ if __name__ == "__main__":
         intro_infor = parse_result.project_intro()
 
         one_lists = basic_infor + sale_infor + xiaoqu_infor + intro_infor
+
         one_list = []
 
         for i in one_lists:
             i = "\"" + i + "\""
             one_list.append(i)
-        print(one_list)
+        #print(one_list)
         print(len(one_list))
 
         sql = """insert into gz_basic_information(
