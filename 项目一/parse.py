@@ -1,3 +1,5 @@
+# coding=utf-8
+
 import requests
 from lxml import etree
 import random
@@ -40,11 +42,7 @@ class Parse(object):
         self.result.encoding = 'gb2312'
 
         self.selector = etree.HTML(self.result.text)
-        #print(self.selector)
-
-
-
-
+        # print(self.selector)
 
     # 基本信息
     def basic_information(self):
@@ -66,12 +64,17 @@ class Parse(object):
 
         # 2、物业类别
         property_type = self.selector.xpath('//div[@class="main-left"]/div[1]/ul[@class="list clearfix"]/li[1]/div[2]/text()')
+        if not property_type:
+            property_type = ['暂无']
         property_type_act = property_type[0].replace('\t','').replace('\n','').replace(' ','')
         # print(property_type_act)
         basic.append(property_type_act)
 
         # 3、项目特色
         project_feture = self.selector.xpath('//div[@class="main-left"]/div[1]/ul[@class="list clearfix"]/li[2]/div[2]/span/text()')
+        if not project_feture:
+            project_feture = ['暂无']
+
         project_feture_act = ''
         for i in project_feture:
              project_feture_act = project_feture_act + i + " "
@@ -81,18 +84,26 @@ class Parse(object):
 
         # 4、建筑类别
         building_category = self.selector.xpath('//div[@class="main-left"]/div[1]/ul[@class="list clearfix"]//span[@class="bulid-type"]/text()')
+        if not building_category:
+            building_category = ['暂无']
         building_category_act = building_category[0].replace('\t','').replace('\n','')
         # print(building_category_act)
         basic.append(building_category_act)
 
         # 5、装修状态
         zhuangxiu = self.selector.xpath('//div[@class="main-left"]/div[1]/ul[@class="list clearfix"]/li[2]/div[2]/li[2]/div[2]/text()')
+        if not zhuangxiu:
+            zhuangxiu = ['暂无']
         zhuangxiu_act = zhuangxiu[0].replace('\t', '').replace('\n','')
         #print(zhuangxiu_act)
         basic.append(zhuangxiu_act)
 
         # 6、产权年限
         chanquanyear = self.selector.xpath('//div[@class="main-left"]/div[1]/ul[@class="list clearfix"]/li[2]/div[2]/li[3]/div[2]//text()')
+
+        if not chanquanyear:
+            chanquanyear = ['暂无']
+
         chanquanyear_act = ''
         for i in chanquanyear:
             chanquanyear_act = chanquanyear_act + i + ' '
@@ -102,6 +113,9 @@ class Parse(object):
 
         # 7、环线位置
         huanxian_position = self.selector.xpath('//div[@class="main-left"]/div[1]/ul[@class="list clearfix"]/li[2]/div[2]/li[4]/div[2]/text()')
+        if not huanxian_position:
+            huanxian_position = ['暂无']
+
         huanxian_position_act = huanxian_position[0].replace('\t','').replace('\n','').replace(' ','')
         # print(huanxian_position_act)
         basic.append(huanxian_position_act)
@@ -109,49 +123,88 @@ class Parse(object):
 
         # 8、开发商
         kaifa = self.selector.xpath('//div[@class="main-left"]/div[1]/ul[@class="list clearfix"]/li[2]/div[2]/li[5]/div/a/text()')
+        if not kaifa:
+            kaifa = ['暂无']
+
+
         kaifa_act = kaifa[0]
         # print(kaifa_act)
         basic.append(kaifa_act)
 
         # 9、楼盘地址
         lpaddress = self.selector.xpath('//div[@class="main-left"]/div[1]/ul[@class="list clearfix"]/li[2]/div[2]/li[6]/div[2]/text()')
+        if not lpaddress:
+            lpaddress = ['暂无']
         lpaddress_act = lpaddress[0]
         # print(lpaddress_act)
         basic.append(lpaddress_act)
-
         return basic
 
     # 销售信息
-
-    def SaleInformation(self):
+    def sale_information(self):
 
         sale = []
 
-        #1、销售状态,优惠信息,开盘时间,交房时间,售楼地址,咨询电话,主力户型
-        JiaoFang = self.selector.xpath('//div[@class="main-left"]/div[1]/ul/li/div[3]/ul/*')
+        # 1、销售状态
+        sale_status = self.selector.xpath('//div[@class="main-left"]/div[1]/ul/li/div[3]/ul/li[1]/div[2]/text()')
+        if not sale_status:
+            sale_status.append('暂无')
+        sale_status_act = sale_status[0].replace('\n', '').replace('\t', '').replace(' ', '')
+        sale.append(sale_status_act)
 
-        for i in range(1,len(JiaoFang)-1):
-           # print(self.selector.xpath('//div[@class="main-left"]/div[1]/ul/li/div[3]/ul/li[' + str(i) + ']/div[2]/text()')[0].replace('\n', '').replace('\t', '').replace(' ', ''))
-            result = self.selector.xpath('//div[@class="main-left"]/div[1]/ul/li/div[3]/ul/li[' + str(i) + ']/div[2]/text()')
-            if not result:
-                result = [' ']
-            sale.append(result[0].replace('\n', '').replace('\t', '').replace(' ', ''))
+        # 2、优惠信息
+        youhui = self.selector.xpath('//div[@class="main-left"]/div[1]/ul/li/div[3]/ul/li[2]/div[2]/text()')
+        if not youhui:
+            youhui.append('暂无')
+        youhui_act = youhui[0].replace('\n', '').replace('\t', '').replace(' ', '')
+        sale.append(youhui_act)
+
+        # 3、开盘时间
+        KaiPan = self.selector.xpath('//div[@class="main-left"]/div[1]/ul/li/div[3]/ul/li[3]/div[2]/text()')
+        if not KaiPan:
+            KaiPan.append('暂无')
+        KaiPan_act = KaiPan[0].replace('\n', '').replace('\t', '').replace(' ', '')
+        sale.append(KaiPan_act)
+
+        # 4、交房时间
+        jiaofang = self.selector.xpath('//div[@class="main-left"]/div[1]/ul/li/div[3]/ul/li[4]/div[2]/text()')
+        if not jiaofang:
+            jiaofang.append('暂无')
+        print(jiaofang)
+        jiaofang_act = jiaofang[0].replace('\n', '').replace('\t', '').replace(' ', '')
+
+        sale.append(jiaofang_act)
 
 
-        #主力户型
-        JiaoFang = self.selector.xpath('//div[@class="main-left"]/div[1]/ul/li/div[3]/ul/li[7]/div[@class="list-right-text"]//text()')
-        JiaoFang_Act = ''
-        for i in JiaoFang:
+        # 5、售楼地址
+        sale_address = self.selector.xpath('//div[@class="main-left"]/div[1]/ul/li/div[3]/ul/li[5]/div[2]/text()')
+        if not sale_address:
+            sale_address.append('暂无')
+        sale_address_act = sale_address[0].replace('\n', '').replace('\t', '').replace(' ', '')
+        sale.append(sale_address_act)
+
+
+        # 6、咨询电话
+        ZiXun_phone = self.selector.xpath('//div[@class="main-left"]/div[1]/ul/li/div[3]/ul/li[6]/div[2]/text()')
+        if not ZiXun_phone:
+            ZiXun_phone.append('暂无')
+        ZiXun_phone_act = ZiXun_phone[0].replace('\n', '').replace('\t', '').replace(' ', '')
+        sale.append(ZiXun_phone_act)
+
+
+
+        # 7、主力户型
+        HuXing = self.selector.xpath('//div[@class="main-left"]/div[1]/ul/li/div[3]/ul/li[7]/div[@class="list-right-text"]//text()')
+        HuXing_act = ''
+        for i in HuXing:
             i = i.replace('\n','').replace('\t','').replace('\n\t','')
-            JiaoFang_Act = JiaoFang_Act + i
+            HuXing_act = HuXing_act + i
         #print(JiaoFang_Act)
-        sale.append(JiaoFang_Act)
+        sale.append(HuXing_act)
 
-        #print(sale)
         return sale
 
-    #小区规划
-
+    # 小区规划
     def Xiaoqu(self):
 
         xiaoqu = []
@@ -231,7 +284,6 @@ class Parse(object):
         if not lc_descri:
             lc_descri = ['暂无']
         xiaoqu.append(lc_descri[0])
-        #print(xiaoqu)
 
         return xiaoqu
 
@@ -244,9 +296,6 @@ class Parse(object):
             intro = i.replace('\t','').replace(' ','')
             intro_all = intro_all + intro
         intro_act.append(intro_all)
-        # print(intro_act)
+        #print(intro_act)
         return intro_act
 
-#
-# parse = Parse('https://dazhuangmingcheng.fang.com/house/2811173750/housedetail.htm')
-# parse.Xiaoqu()
