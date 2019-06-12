@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 本机
+ Source Server         : ELK
  Source Server Type    : MySQL
  Source Server Version : 80016
- Source Host           : localhost:3306
+ Source Host           : 18.203.153.3:3306
  Source Schema         : ftx
 
  Target Server Type    : MySQL
  Target Server Version : 80016
  File Encoding         : 65001
 
- Date: 09/06/2019 23:31:44
+ Date: 12/06/2019 12:55:23
 */
 
 SET NAMES utf8mb4;
@@ -23,6 +23,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `gz_basic_information`;
 CREATE TABLE `gz_basic_information`  (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id号',
+  `lp_aero` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '楼盘区域',
   `lp_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '楼盘名称',
   `lp_price` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '价格',
   `wy_category` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '物业类别',

@@ -48,6 +48,14 @@ class Parse(object):
     def basic_information(self):
 
         basic = []
+        # 楼盘区域
+        #aero = self.selector.xpath('//div[@class="topcrumbs"]/a[3]/text()')
+        aero = self.selector.xpath('//div[@class="topcrumbs"]/a[3]/text()')
+        print(aero)
+        if not aero:
+            aero.append('暂无')
+        aero_act = aero[0]
+        basic.append(aero_act)
 
         # 楼盘名称
         name = self.selector.xpath('//div//a[@class="ts_linear"]/text()')
@@ -170,7 +178,6 @@ class Parse(object):
         jiaofang = self.selector.xpath('//div[@class="main-left"]/div[1]/ul/li/div[3]/ul/li[4]/div[2]/text()')
         if not jiaofang:
             jiaofang.append('暂无')
-        print(jiaofang)
         jiaofang_act = jiaofang[0].replace('\n', '').replace('\t', '').replace(' ', '')
 
         sale.append(jiaofang_act)
@@ -299,3 +306,5 @@ class Parse(object):
         #print(intro_act)
         return intro_act
 
+parse = Parse('https://hengbangyifeng.fang.com/house/2810135144/housedetail.htm')
+parse.basic_information()
