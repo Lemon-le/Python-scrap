@@ -6,6 +6,8 @@ from parse import Parse
 from db import DB
 
 
+# https://loudi.newhouse.fang.com/house/s/
+
 class WebAnalyze(object):
 
     # 请求指定的URL

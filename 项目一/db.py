@@ -54,7 +54,6 @@ class DB(object):
         try:
             self.cursor.execute(sql)
             results = self.cursor.fetchall()
-            self.db.commit()
             return results
         except Exception as e:
             print(e)

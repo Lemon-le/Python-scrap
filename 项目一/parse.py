@@ -3,10 +3,12 @@
 import requests
 from lxml import etree
 import random
+import re
+
 
 class Parse(object):
 
-    def __init__(self,url):
+    def __init__(self, url):
 
 
         my_headers = [
@@ -66,8 +68,9 @@ class Parse(object):
 
         # 1、价格
         price = self.selector.xpath('//div[@class="main-info-price"]//em/text()')
-        price_act = price[0].replace('\t','').replace(' ','').replace('\n','')
-        # print(price_act)
+        price_act = price[0].replace('\t', '').replace(' ', '').replace('\n', '')
+        price_act = re.sub(r"\D", "", price_act)
+        print(price_act)
         basic.append(price_act)
 
         # 2、物业类别
@@ -305,6 +308,6 @@ class Parse(object):
         intro_act.append(intro_all)
         #print(intro_act)
         return intro_act
-
-parse = Parse('https://hengbangyifeng.fang.com/house/2810135144/housedetail.htm')
-parse.basic_information()
+#
+# parse = Parse('https://hengbangyifeng.fang.com/house/2810135144/housedetail.htm')
+# parse.basic_information()
