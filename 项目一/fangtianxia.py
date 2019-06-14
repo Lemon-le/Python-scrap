@@ -31,7 +31,7 @@ class WebAnalyze(object):
 
         # 请求头信息
         headers = {
-            'Referer': "https://sz.newhouse.fang.com/house/s/",
+            'Referer': "https://xiangxiang.newhouse.fang.com/house/s/",
             "User-Agent": random.choice(my_headers)
         }
 
@@ -46,7 +46,7 @@ class WebAnalyze(object):
 
     # 获取总页数
     def get_all_page(self):
-        page_url = "https://sz.newhouse.fang.com/house/s/"
+        page_url = "https://xiangxiang.newhouse.fang.com/house/s/"
         selector = self.send_request(page_url)
         result = selector.xpath('//div//a[@class="last"]/@href')
         page_count = result[0].split('/')[3][2:]
@@ -66,8 +66,8 @@ class WebAnalyze(object):
         page = int(page)
 
         # 根据页数URL只会变动数字，获取这个规律，就可获取所有页面下的所有楼盘信息链接
-        url_1 = "https://sz.newhouse.fang.com/house/s/b9"
-        url_2 = "/?ctm=1.sz.xf_search.page."
+        url_1 = "https://xiangxiang.newhouse.fang.com/house/s/b9"
+        url_2 = "/?ctm=1.xiangxiang.xf_search.page."
         for i in range(1,page):
             url = url_1+str(i)+url_2+str(i)
             selector = self.send_request(url)
@@ -164,7 +164,7 @@ if __name__ == "__main__":
             one_list.append(i)
 
 
-        sql = """insert into gz_basic_information(
+        sql = """insert into xx_basic_information(
               lp_aero,lp_name,lp_price,wy_category,project_characteristics,jz_category,zx_status,
               cq_year,loop_position,developer,lp_adress,sale_status,yh_information,
               opening_time,room_time,sale_adress,calls,main_door_model,area,
